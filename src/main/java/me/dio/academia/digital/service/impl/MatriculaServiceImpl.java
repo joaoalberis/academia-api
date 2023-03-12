@@ -3,12 +3,14 @@ package me.dio.academia.digital.service.impl;
 import me.dio.academia.digital.entity.Aluno;
 import me.dio.academia.digital.entity.Matricula;
 import me.dio.academia.digital.entity.form.MatriculaForm;
+import me.dio.academia.digital.infra.utils.JavaTimeUtils;
 import me.dio.academia.digital.repository.AlunoRepository;
 import me.dio.academia.digital.repository.MatriculaRepository;
 import me.dio.academia.digital.service.IMatriculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -36,11 +38,14 @@ public class MatriculaServiceImpl implements IMatriculaService {
     }
 
     @Override
-    public List<Matricula> getAll(String bairro) {
-        if (bairro == null){
-            return matriculaRepository.findAll();
-        }else{
+    public List<Matricula> getAll(String bairro, String dataDeMatricula) {
+        if (bairro != null){
             return matriculaRepository.findAlunosMatriculadosBairro(bairro);
+        } else if (dataDeMatricula != null) {
+            LocalDateTime localDate = LocalDateTime.parse(dataDeMatricula, JavaTimeUtils.LOCAL_DATE_TIME_FORMATTER);
+            return matriculaRepository.findByDataDaMatriculaLessThanEqual(localDate);
+        } else{
+            return matriculaRepository.findAll();
         }
     }
 

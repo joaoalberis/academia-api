@@ -22,9 +22,9 @@ public class MatriculaController {
     }
 
     @GetMapping
-    public List<Matricula> getAll(@RequestParam(value = "bairro", required = false)
-                                  String bairro){
-        return service.getAll(bairro);
+    public List<Matricula> getAll(@RequestParam(value = "bairro", required = false) String bairro,
+                                  @RequestParam(value = "dataDeMatricula", required = false) String dataDeMatricula){
+        return service.getAll(bairro, dataDeMatricula);
     }
 
     @DeleteMapping("/{id}")
