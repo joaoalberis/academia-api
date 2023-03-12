@@ -44,13 +44,14 @@ public class AlunoServiceImpl implements IAlunoService {
     }
 
     @Override
-    public List<Aluno> getAll(String dataDeNascimento) {
-
-        if(dataDeNascimento == null){
-            return alunoRepository.findAll();
-        }else {
+    public List<Aluno> getAll(String dataDeNascimento, String nome) {
+        if(dataDeNascimento != null){
             LocalDate localDate = LocalDate.parse(dataDeNascimento, JavaTimeUtils.LOCAL_DATE_FORMATTER);
             return alunoRepository.findByDataDeNascimento(localDate);
+        } else if (nome != null) {
+            return alunoRepository.findByNome(nome);
+        } else {
+            return alunoRepository.findAll();
         }
     }
 
@@ -90,5 +91,10 @@ public class AlunoServiceImpl implements IAlunoService {
     public List<AvaliacaoFisica> getAllAvaliacaoFisicaId(Long id) {
         Aluno aluno = alunoRepository.findById(id).get();
         return aluno.getAvaliacoes();
+    }
+
+    @Override
+    public List<Aluno> getAlunosByNome(String nome) {
+        return alunoRepository.findByNome(nome);
     }
 }
