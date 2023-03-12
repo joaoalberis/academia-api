@@ -38,8 +38,14 @@ public class AvaliacaoFisicaServiceImpl implements IAvaliacaoFisicaService {
     }
 
     @Override
-    public List<AvaliacaoFisica> getAll() {
-        return avaliacaoFisicaRepository.findAll();
+    public List<AvaliacaoFisica> getAll(Double peso, Double altura) {
+        if (peso != null){
+            return avaliacaoFisicaRepository.findByPeso(peso);
+        }else if(altura != null){
+            return avaliacaoFisicaRepository.findByAltura(altura);
+        }else{
+            return avaliacaoFisicaRepository.findAll();
+        }
     }
 
     @Override

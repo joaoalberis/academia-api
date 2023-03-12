@@ -12,4 +12,8 @@ public interface AvaliacaoFisicaRepository extends JpaRepository<AvaliacaoFisica
     boolean existsByAluno(Aluno aluno);
 
     List<AvaliacaoFisica> findByAluno(Aluno aluno);
+
+    List<AvaliacaoFisica> findByPeso(double peso);
+
+    List<AvaliacaoFisica> findByAltura(double altura);
 }

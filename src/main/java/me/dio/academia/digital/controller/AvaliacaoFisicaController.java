@@ -23,8 +23,10 @@ public class AvaliacaoFisicaController {
     }
 
     @GetMapping
-    public List<AvaliacaoFisica> getAll(){
-        return service.getAll();
+    public List<AvaliacaoFisica> getAll(@RequestParam(value = "peso", required = false) Double peso,
+                                        @RequestParam(value = "altura", required = false) Double altura){
+
+        return service.getAll(peso, altura);
     }
 
     @GetMapping("/{id}")
